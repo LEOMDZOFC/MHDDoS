@@ -6,7 +6,7 @@ from threading import Lock
 import time
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-BOT_TOKEN = "8103818524:AAHdqbKS8tYtEXuJf-50aDPCHnJUKJRTisg"
+BOT_TOKEN = "7740554704:AAHrbTeyeiHqodsd2tZKc-E6g-hHkak8_tQ"
 ADMIN_ID = 6772734775
 START_PY_PATH = "/workspaces/MHDDoS/start.py"
 
@@ -139,7 +139,7 @@ def handle_ping(message):
         return
 
     if telegram_id in cooldowns and time.time() - cooldowns[telegram_id] < 3:
-        bot.reply_to(message, "❌ ESPERE 3 SEGUNDOS ANTES DE COMEÇAR OUTRO ATAQUE E LEMBRE-SE DE PARAR O ANTERIOR.")
+        bot.reply_to(message, "❌ ESPERE 3 SEGUNDOS ANTES DE COMEÇAR OUTRO ATACK E LEMBRE-SE DE PARAR O ANTERIOR")
         return
 
     args = message.text.split()
@@ -174,10 +174,10 @@ def handle_ping(message):
         message,
         (
             "*[✅] ATACK INICIADO - 200 [✅]*\n\n"
-            f"🌐 *Porto:* {ip_port}\n"
-            f"⚙️ *Tipo:* {attack_type}\n"
-            f"🧟‍♀️ *Threads:* {threads}\n"
-            f"⏳ *Tempo (ms):* {duration}\n\n"
+            f"🌐 *PORTO:* {ip_port}\n"
+            f"⚙️ *TIPO:* {attack_type}\n"
+            f"🧟‍♀️ *DELAY:* {threads}\n"
+            f"⏳ *TEMPO* {duration}\n\n"
             f"💠 VC É UM USUÁRIO VIP 💠"
         ),
         reply_markup=markup,
@@ -210,7 +210,8 @@ def handle_stop_attack(call):
         time.sleep(3)
         bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
     else:
-        bot.answer_callback_query(call.id, "❌ NAO SE ENCONTRO NEBYJ ATACK, SIGA COM SUA AÇÃO.")
+        bot.answer_callback_query(call.id, "NENHUM ATACK ENCONTRADO")
 
 if __name__ == "__main__":
     bot.infinity_polling()
+        
