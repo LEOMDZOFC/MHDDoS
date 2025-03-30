@@ -6,7 +6,7 @@ from threading import Lock
 import time
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-BOT_TOKEN = "7740554704:AAEWrt053rrFVjTMgbG4y1NyQue7WwUFiwg"
+BOT_TOKEN = "7740554704:AAHKk1cueT8WRuUCWsCxQfwVQbnL-tOyeXM"
 ADMIN_ID = 6772734775
 START_PY_PATH = "/workspaces/MHDDoS/start.py"
 
@@ -65,7 +65,7 @@ def handle_start(message):
     bot.reply_to(
         message,
         (
-            "*LEO MENU BOT PING99+ FREE FIRE!*"
+            "*LEO BOT DDOS*"
             
 
             f"""
